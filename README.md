@@ -1,7 +1,9 @@
 # php-crud
 PHP CRUD Sample
 
-O objetivo desse projeto é estudar o funcionamento do PHP para criar uma rotina de CRUD. 
+O objetivo desse projeto é estudar o funcionamento do PHP para criar uma rotina de CRUD.
+
+## comandos git
 
 1) cria uma nova versão do código (branche) e escolhe um nome (checkout)
 2) adiciona as modificações (add)
