@@ -10,10 +10,8 @@ if ($_POST) {
     $celular = $_POST['celular'];
     $email = $_POST['email'];
 
-    // ATUALIZA CONTATO
-    $query = "UPDATE contatos
-    SET nome = '$nome', celular = '$celular', email = '$email'
-    WHERE id = $id";
+    // DELETA CONTATO
+    $query = "DELETE FROM contatos WHERE id = '$id'";
 
     $sql = mysqli_query($conexao, $query) or die("Erro");
 
@@ -39,9 +37,9 @@ $dados = mysqli_fetch_assoc($sql);
 </head>
 
 <body>
-    <h2>Editar - Contato <?php echo $id ?></h2>
+    <h2>Excluir - Contato <?php echo $dados['nome']; ?></h2>
 
-    <form method="post" action="update.php?id=<?php echo $dados['id'] ?>" style="width: 660px;">
+    <form method="post" action="delete.php?id=<?php echo $dados['id'] ?>" style="width: 660px;">
 
         <fieldset>
             <legend>Informações do contato:</legend>
@@ -58,7 +56,8 @@ $dados = mysqli_fetch_assoc($sql);
                 <input type="text" class="form-control" name="celular" placeholder="Celular" value="<?php echo $dados['celular']; ?>">
             </div>
 
-            <button type="submit" class="btn btn-info">ATUALIZAR</button>
+            <button type="submit" class="btn btn-danger">Deletar</button>
+            <a href="select.php" class="btn btn">Voltar</a>
 
         </fieldset>
     </form>
