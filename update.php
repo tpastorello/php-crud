@@ -12,7 +12,11 @@ if ($_POST) {
     $celular = $_POST['celular'];
 
     // QUANDO RODA O POST PRECISA ATUALIZAR A QUERY ... COPIAR A SINTAXE DO insert.php
-    $query = "UPDATE ..... .WHERE id = .......";
+    
+    $query = "UPDATE contatos
+    SET nome = '$nome', celular = '$celular' ,email = '$email'
+    WHERE id = $id";
+
     $sql = mysqli_query($conexao, $query) or die("Erro");
 
     //VOLTA PARA LISTA
@@ -40,9 +44,9 @@ $dados = mysqli_fetch_assoc($sql);
 </head>
 
 <body>
-    <h2>Editar - Contato <?php echo $id ?></h2>
+    <h2>Editar - Contato <?php echo $dados['nome'] ?></h2>
 
-    <form method="post" action="insert.php" style="width: 660px;">
+    <form method="post" action="update.php?id=<?php echo $dados['id'] ?>" style="width: 660px;">
 
         <fieldset>
             <legend>Informações do contato:</legend>
@@ -52,11 +56,11 @@ $dados = mysqli_fetch_assoc($sql);
             </div>
 
             <div class="input-group mb-3">
-                <input type="text" class="form-control" name="email" placeholder="Email" >
+                <input type="text" class="form-control" name="email" placeholder="Email" value="<?php echo $dados['email']; ?>">
             </div>
 
             <div class="input-group mb-3">
-                <input type="text" class="form-control" name="celular" placeholder="Celular" >
+                <input type="text" class="form-control" name="celular" placeholder="Celular" value="<?php echo $dados['celular']; ?>">
             </div>
 
             <button type="submit" class="btn btn-info">ATUALIZAR</button>

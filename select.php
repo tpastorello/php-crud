@@ -42,7 +42,7 @@ $sql = mysqli_query($conexao, $query) or die("Erro");
                     <td><?php echo $dados['email']  ?></td>
                     <td>
                         <a href="update.php?id=<?php echo $dados['id'] ?>">Editar</a>
-                        <a href="#">Excluir</a>
+                        <a href="delete.php?id=<?php echo $dados['id'] ?>">Excluir</a>
                     </td>
                 </tr>
             <?php
