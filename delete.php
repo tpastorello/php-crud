@@ -45,15 +45,15 @@ $dados = mysqli_fetch_assoc($sql);
             <legend>Informações do contato:</legend>
 
             <div class="input-group mb-3">
-                <input type="text" class="form-control" name="nome" placeholder="Nome" value="<?php echo $dados['nome']; ?>">
+                <input type="text" class="form-control" name="nome" placeholder="Nome" value="<?php echo $dados['nome']; ?>" readonly>
             </div>
 
             <div class="input-group mb-3">
-                <input type="text" class="form-control" name="email" placeholder="Email" value="<?php echo $dados['email']; ?>">
+                <input type="text" class="form-control" name="email" placeholder="Email" value="<?php echo $dados['email']; ?>" readonly>
             </div>
 
             <div class="input-group mb-3">
-                <input type="text" class="form-control" name="celular" placeholder="Celular" value="<?php echo $dados['celular']; ?>">
+                <input type="text" class="form-control" name="celular" placeholder="Celular" value="<?php echo $dados['celular']; ?>" readonly>
             </div>
 
             <button type="submit" class="btn btn-danger">Deletar</button>
