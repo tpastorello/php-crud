@@ -2,7 +2,12 @@
 
 require("db/connect.php");
 
-$query = "SELECT * FROM contatos ORDER BY id DESC";
+if (isset($_GET['term'])) {
+    $searchTerm = $_GET['term'];
+    $query = "SELECT * FROM contatos WHERE nome LIKE '%$searchTerm%' OR email LIKE '%$searchTerm%' ORDER BY id DESC";
+} else {
+    $query = "SELECT * FROM contatos ORDER BY id DESC";
+}
 $sql = mysqli_query($conexao, $query) or die("Erro");
 
 ?>
@@ -18,14 +23,17 @@ $sql = mysqli_query($conexao, $query) or die("Erro");
 
 <body>
     <h2>Contatos</h2>
-
+    <form method="GET" action="select.php">
+        <input type="text" name="term" placeholder="Pesquisar por nome ou email" style="width: 500px">
+        <button type="submit" style="width: 160px">Pesquisar</button>
+    </form>
     <table class="table" style="width: 660px">
         <thead>
             <tr>
                 <th scope="col">#</th>
                 <th scope="col">NOME</th>
-                <th scope="col">EMAIL</th>
                 <th scope="col">CELULAR</th>
+                <th scope="col">EMAIL</th>
                 <th>
                     <a href="insert.php">INSERIR</a>
                 </th>

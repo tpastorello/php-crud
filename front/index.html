@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>PHP CRUD</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"
+        integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+</head>
+
+<script>
+     
+    $.ajax({
+        url: '../back/select.php',
+        success: function (data) {
+            // console.log(data);
+            preencheData(data)
+        }
+    });
+    
+    function serachContact() {
+        const searchTerm = $("#searchTerm").val();
+        $.ajax({
+            url: '../back/select.php',
+            method: 'GET',
+            data: {
+                term: searchTerm
+            },
+            success: function (data) {
+                preencheData(data)
+            }
+        });
+    };
+
+    function deleteContact(value) {
+        const confirmation = confirm(`Tem certeza que deseja excluir ${value[1]}`);
+
+        if (confirmation) {
+            // alert('confirumou')
+        } else {
+            // alert('cancelou')
+        }
+    }
+
+    function preencheData(data) {
+        const tableBody = document.getElementById("table-body");
+        tableBody.innerHTML = '';
+
+        for (let i = 0; i < data.length; i++) {
+            const newRow = tableBody.insertRow(tableBody.rows.length);
+
+            for (let j = 0; j < data[i].length; j++) {
+                const cell = newRow.insertCell(j);
+                cell.innerHTML = data[i][j];
+            }
+
+            const editButton = document.createElement('a');
+            editButton.href = '#' + data[i][0];
+            editButton.textContent = 'Editar';
+
+            const deleteButton = document.createElement('a');
+            deleteButton.href = '#' + data[i][0];
+            deleteButton.textContent = 'Excluir';
+            deleteButton.addEventListener('click', function (e) {
+                e.preventDefault();
+                deleteContact(data[i]);
+            });
+
+            const buttonCell = newRow.insertCell(data[i].length);
+            buttonCell.appendChild(editButton);
+            buttonCell.appendChild(deleteButton);
+        }
+    }
+
+</script>
+
+<body>
+    <h2>Contatos</h2>
+    <div>
+        <input id="searchTerm" type="text" name="term" placeholder="Pesquisar por nome ou email" style="width: 500px">
+        <button type="submit" style="width: 160px" onclick="serachContact()">Pesquisar</button>
+    </div>
+    <table class="table" style="width: 660px">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">NOME</th>
+                <th scope="col">CELULAR</th>
+                <th scope="col">EMAIL</th>
+                <th>
+                    <a href="insert.php">INSERIR</a>
+                </th>
+            </tr>
+        </thead>
+        <tbody id="table-body">
+        </tbody>
+    </table>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
